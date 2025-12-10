@@ -133,6 +133,68 @@ AI-Quiz-Generator/
 ├── .env.local               # Environment variables
 ├── package.json
 ├── next.config.js
+├── Dockerfile
+├── docker-compose.yml
+├── Makefile
+├── DOCKER_CICD_GUIDE.md
 └── README.md
 ```
+
+---
+
+## 🐳 Docker & CI/CD Setup
+
+This project includes complete Docker containerization and GitHub Actions CI/CD pipelines.
+
+### Quick Start with Docker
+
+**Development (with hot reload):**
+```bash
+docker-compose up
+```
+
+**Production:**
+```bash
+docker build -t ai-quiz-generator:latest --target production .
+docker run -p 3000:3000 --env-file .env.local ai-quiz-generator:latest
+```
+
+### GitHub Actions Pipelines
+
+Two automated workflows are included:
+
+1. **CI Pipeline** (`cicd.yml`) - Runs on every push/PR
+   - Linting and testing
+   - Docker image build and push
+   - Security vulnerability scanning
+
+2. **Deployment Pipeline** (`deploy.yml`) - Triggered by version tags
+   - Builds and pushes Docker image to GitHub Container Registry
+   - Creates GitHub releases automatically
+
+### Setup Instructions
+
+See [DOCKER_CICD_GUIDE.md](./DOCKER_CICD_GUIDE.md) for:
+- Detailed Docker commands
+- GitHub Actions configuration
+- Environment variable setup
+- Troubleshooting guide
+- Security best practices
+
+### Quick Commands
+
+```bash
+# Local development
+make docker-up
+
+# Build production image
+make build-docker
+
+# Run production container
+make run-docker
+
+# View all available commands
+make help
+```
+
 ---
