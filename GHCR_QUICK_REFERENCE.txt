@@ -1,0 +1,117 @@
+# 🚀 GHCR Publishing - Quick Reference Card
+
+## ⚡ TL;DR (First Time Setup)
+
+```powershell
+# 1. Create GitHub PAT:
+#    Go to: https://github.com/settings/tokens
+#    - Generate token (classic)
+#    - Scopes: write:packages, read:packages
+#    - COPY the token
+
+# 2. Add to repository secrets:
+#    Go to: https://github.com/Mussab-Aziz/DockerPractice/settings/secrets/actions
+#    - Name: GHCR_TOKEN
+#    - Value: [paste token]
+
+# 3. Publish first release:
+.\publish.ps1 -Version 1.0.0 -Message "Initial release"
+```
+
+## 📦 Publishing Releases
+
+### Windows (Recommended)
+```powershell
+.\publish.ps1 -Version 1.0.1 -Message "Your release message"
+```
+
+### macOS/Linux
+```bash
+./publish.sh v1.0.1 "Your release message"
+```
+
+### Manual (Any OS)
+```powershell
+git tag -a v1.0.1 -m "Release v1.0.1"
+git push origin v1.0.1
+```
+
+## 🔗 Important Links
+
+| Action | Link |
+|--------|------|
+| Create PAT | https://github.com/settings/tokens |
+| Add to Secrets | https://github.com/Mussab-Aziz/DockerPractice/settings/secrets/actions |
+| View Workflows | https://github.com/Mussab-Aziz/DockerPractice/actions |
+| View Packages | https://github.com/Mussab-Aziz/DockerPractice/packages |
+| Full Guide | See `GHCR_SETUP.md` |
+
+## 🐳 Docker Commands
+
+```powershell
+# Pull latest image
+docker pull ghcr.io/mussab-aziz/dockerpractice:latest
+
+# Run container
+docker run -p 3000:3000 ghcr.io/mussab-aziz/dockerpractice:latest
+
+# View all GHCR images
+docker image ls | findstr ghcr
+
+# Login to GHCR
+docker login ghcr.io -u your-username -p YOUR_GHCR_TOKEN
+```
+
+## ✅ Status
+
+- ✅ Docker configured
+- ✅ CI/CD workflows ready
+- ✅ Publishing scripts created
+- ✅ v1.0.0 tag pushed (waiting for PAT)
+- ⏳ **Awaiting**: GitHub PAT creation & secret setup
+
+## 🎯 Version Numbering
+
+```
+v1.0.0 → v1.0.1  (patch fix)
+v1.0.0 → v1.1.0  (minor feature)
+v1.0.0 → v2.0.0  (major change)
+```
+
+## 📝 Example Releases
+
+```powershell
+# Bug fix
+.\publish.ps1 -Version 1.0.1 -Message "Fix login bug"
+
+# New feature
+.\publish.ps1 -Version 1.1.0 -Message "Add quiz filtering"
+
+# Major update
+.\publish.ps1 -Version 2.0.0 -Message "Complete redesign"
+```
+
+## ⏱️ Timeline
+
+1. **Now**: Create PAT & add to secrets (~5 min)
+2. **Then**: Run publish script (~2 min)
+3. **Wait**: GitHub builds & pushes (~5-10 min)
+4. **Done**: Image available in GHCR ✅
+
+## 🆘 If Something Goes Wrong
+
+```powershell
+# Check workflow status
+# Go to: https://github.com/Mussab-Aziz/DockerPractice/actions
+
+# Delete wrong tag
+git tag -d v1.0.0
+git push origin --delete v1.0.0
+
+# Redo release
+.\publish.ps1 -Version 1.0.0 -Message "Fixed release"
+```
+
+---
+
+**Ready to publish?** Start with: `.\publish.ps1 -Version 1.0.0 -Message "Initial release"`
