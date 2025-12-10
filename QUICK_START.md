@@ -76,9 +76,21 @@ NEXT_TELEMETRY_DISABLED=1
 - Every push to `main`/`develop` runs CI (lint, build, Docker push)
 - View at: GitHub → Actions tab
 
-### Manual Deployment
+### Publish to GHCR (GitHub Container Registry)
+
+**Windows:**
+```powershell
+.\publish.ps1 -Version 1.0.1 -Message "Release description"
+```
+
+**macOS/Linux:**
 ```bash
-# Create and push version tag
+chmod +x publish.sh
+./publish.sh v1.0.1 "Release description"
+```
+
+**Or manually:**
+```bash
 git tag -a v1.0.0 -m "Release 1.0.0"
 git push origin v1.0.0
 ```
@@ -87,6 +99,7 @@ This automatically:
 - Builds Docker image
 - Pushes to GitHub Container Registry
 - Creates GitHub Release
+- Image available at: `ghcr.io/yourusername/dockerpractice:v1.0.0`
 
 ---
 
@@ -111,6 +124,9 @@ This automatically:
 | `Makefile` | Command shortcuts |
 | `.env.local` | Local configuration |
 | `.env.example` | Configuration template |
+| `publish.ps1` | Windows GHCR publishing script |
+| `publish.sh` | macOS/Linux GHCR publishing script |
+| `GHCR_SETUP.md` | GHCR setup documentation |
 
 ---
 
