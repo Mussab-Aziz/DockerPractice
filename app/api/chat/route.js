@@ -1,13 +1,17 @@
 // Final version  (Groq API compatible, updated model)
 // Next.js Edge Function for quiz generation
 
-if (!process.env.GROQ_API_KEY) {
-  throw new Error("Missing Groq API Key");
-}
-
 export const runtime = "edge"; // define this API route as an Edge Function
 
 export async function POST(request) {
+  // Check API key at runtime, not build time
+  if (!process.env.GROQ_API_KEY) {
+    return new Response(
+      JSON.stringify({ error: "GROQ_API_KEY environment variable is not set" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   try {
     const { language, difficulty, topic, numQuestions } = await request.json();
 
